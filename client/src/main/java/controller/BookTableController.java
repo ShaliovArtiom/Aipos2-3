@@ -8,8 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.Book;
-import mysql.MysqlOption;
-import storage.Storage;
 import view.Window;
 
 import java.io.IOException;
@@ -29,8 +27,8 @@ public class BookTableController implements Initializable {
     private TableColumn<Book, String> bookNameColumn;
     @FXML
     private TableColumn<Book, String> authorNameColumn;
-
     @FXML
+
     private Label authorNameLabel;
     @FXML
     private Label bookNameLable;
@@ -53,8 +51,6 @@ public class BookTableController implements Initializable {
             numberOfPageLable.setText("");
             idLable.setText("");
         }
-
-
     }
 
     @FXML
@@ -62,7 +58,7 @@ public class BookTableController implements Initializable {
         Book tempBook = new Book();
         boolean okClicked = Window.showEditDialog(tempBook);
         if (okClicked) {
-            MysqlOption.getInstance().addBookTable(tempBook);
+//            MysqlOption.getInstance().addBookTable(tempBook);
             refresh();
         }
     }
@@ -73,7 +69,7 @@ public class BookTableController implements Initializable {
         Book selectedBook = bookTableView.getSelectionModel().getSelectedItem();
         if (selectedBook != null) {
             boolean okClicked = Window.showEditDialog(selectedBook);
-            MysqlOption.getInstance().renameBookTable(selectedBook);
+          //  MysqlOption.getInstance().renameBookTable(selectedBook);
             if (okClicked) {
                 showDetails(selectedBook);
             }
@@ -94,7 +90,7 @@ public class BookTableController implements Initializable {
         int selectedIndex = bookTableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             Book book =  bookTableView.getSelectionModel().getSelectedItem();
-            MysqlOption.getInstance().deleteBookTable(book);
+//            MysqlOption.getInstance().deleteBookTable(book);
             refresh();
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -120,7 +116,7 @@ public class BookTableController implements Initializable {
     }
 
     public void refresh() {
-        data = Storage.getIstance().getBookList();
+       // data = Storage.getIstance().getBookList();
         bookTableView.setItems(data);
     }
 }

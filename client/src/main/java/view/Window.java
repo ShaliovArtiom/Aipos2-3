@@ -5,15 +5,11 @@ import controller.EditDialogController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Book;
-import mysql.MysqlOption;
-import storage.Storage;
-
 import java.io.IOException;
+import model.Book;
 import java.net.URL;
 
 /**
@@ -40,7 +36,7 @@ public class Window extends Application {
 
     private void initLayout() throws Exception {
 
-        MysqlOption.getInstance().readTable();
+       // MysqlOption.getInstance().readTable();
 
         URL resource = Window.class.getResource("/table.fxml");
         FXMLLoader loader = new FXMLLoader(resource);
