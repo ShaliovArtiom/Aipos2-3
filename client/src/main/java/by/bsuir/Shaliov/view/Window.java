@@ -2,6 +2,8 @@ package by.bsuir.Shaliov.view;
 
 import by.bsuir.Shaliov.controller.BookTableController;
 import by.bsuir.Shaliov.controller.EditDialogController;
+import by.bsuir.Shaliov.service.TransporConnector;
+import by.bsuir.Shaliov.service.TransportConnectorService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,6 +21,7 @@ public class Window extends Application {
 
     private AnchorPane layout;
     private static Stage primaryStage;
+    private TransportConnectorService transportConnectorService;
 
     public Window() {
     }
@@ -36,7 +39,6 @@ public class Window extends Application {
 
     private void initLayout() throws Exception {
 
-       // MysqlOption.getInstance().readTable();
 
         URL resource = Window.class.getResource("/table.fxml");
         FXMLLoader loader = new FXMLLoader(resource);

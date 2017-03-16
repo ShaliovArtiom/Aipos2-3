@@ -1,5 +1,7 @@
 package by.bsuir.Shaliov.controller;
 
+import by.bsuir.Shaliov.service.TransporConnector;
+import by.bsuir.Shaliov.service.TransportConnectorService;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,6 +39,9 @@ public class BookTableController implements Initializable {
     @FXML
     private Label idLable;
 
+    private TransportConnectorService transportConnectorService;
+
+
     public void showDetails(Book book) {
 
         if (book != null) {
@@ -58,6 +63,11 @@ public class BookTableController implements Initializable {
         Book tempBook = new Book();
         boolean okClicked = Window.showEditDialog(tempBook);
         if (okClicked) {
+            TransporConnector.getInstance().openConnection();
+            TransportConnectorService transportConnectorService = new TransportConnectorService(TransporConnector.getInstance());
+            transportConnectorService.addBook(tempBook.getId(), tempBook.getBookName(), tempBook.getAuthorName(), tempBook.getPageValue());
+            TransporConnector.getInstance().closeConnection();
+
 //            MysqlOption.getInstance().addBookTable(tempBook);
             refresh();
         }
@@ -116,7 +126,12 @@ public class BookTableController implements Initializable {
     }
 
     public void refresh() {
-       // data = Storage.getIstance().getBookList();
+        TransporConnector.getInstance().openConnection();
+        transportConnectorService = new TransportConnectorService(TransporConnector.getInstance());
+        data = (ObservableList) transportConnectorService.getAllBook();
+        TransporConnector.getInstance().closeConnection();
+
+        // data = Storage.getIstance().getBookList();
         bookTableView.setItems(data);
     }
 }

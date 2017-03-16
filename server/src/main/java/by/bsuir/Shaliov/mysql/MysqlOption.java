@@ -29,10 +29,10 @@ public class MysqlOption implements BookService.Iface {
     public void readTable() {
 
         query = "select * from book_table";
-        readPriceTableSQL();
+        readBookTable();
     }
 
-    private void readPriceTableSQL() {
+    private void readBookTable() {
         try {
             worker.openConnection();
             Statement statement = worker.getConnection().createStatement();
@@ -45,6 +45,7 @@ public class MysqlOption implements BookService.Iface {
                 book.setPageValue(resultSet.getInt(4));
                 Storage.getIstance().add(book);
             }
+            Storage.getIstance().getBookList();
             statement.close();
             worker.closeConnection();
         } catch (SQLException e) {

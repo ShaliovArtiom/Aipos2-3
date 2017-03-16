@@ -4,12 +4,15 @@ import by.bsuir.Shaliov.common.model.Book;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author ShaliovArtiom.
  */
 public class Storage {
     private static Storage istance = null;
-    private ObservableList<Book> bookList = FXCollections.observableArrayList();
+    private List<Book> bookList = new ArrayList<>();
 
     private Storage(){}
 
@@ -23,7 +26,7 @@ public class Storage {
         return istance;
     }
 
-    public ObservableList getBookList(){
+    public List<Book> getBookList(){
         return bookList;
     }
 }
