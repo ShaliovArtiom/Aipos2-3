@@ -1,8 +1,8 @@
-package storage;
+package by.bsuir.Shaliov.storage;
 
+import by.bsuir.Shaliov.common.model.Book;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Book;
 
 /**
  * @author ShaliovArtiom.

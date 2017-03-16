@@ -1,4 +1,4 @@
-package mysql;
+package by.bsuir.Shaliov.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
