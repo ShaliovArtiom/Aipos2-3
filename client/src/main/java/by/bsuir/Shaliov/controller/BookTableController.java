@@ -1,4 +1,4 @@
-package controller;
+package by.bsuir.Shaliov.controller;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -7,8 +7,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import model.Book;
-import view.Window;
+import by.bsuir.Shaliov.common.model.Book;
+import by.bsuir.Shaliov.view.Window;
 
 import java.io.IOException;
 import java.net.URL;

@@ -1,4 +1,6 @@
-import view.Window;
+package by.bsuir.Shaliov;
+
+import by.bsuir.Shaliov.view.Window;
 
 /**
  * @author ShaliovArtiom.

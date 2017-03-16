@@ -1,10 +1,10 @@
-package controller;
+package by.bsuir.Shaliov.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.Book;
+import by.bsuir.Shaliov.common.model.Book;
 
 /**
  * @author ShaliovArtiom.
