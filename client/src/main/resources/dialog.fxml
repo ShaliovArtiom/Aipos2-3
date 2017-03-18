@@ -8,7 +8,7 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="by.bsuir.Shaliov.controller.EditDialogController">
   <children>
-    <GridPane layoutX="14.0" layoutY="14.0" prefHeight="272.0" prefWidth="373.0">
+    <GridPane layoutX="13.0" layoutY="-24.0" prefHeight="272.0" prefWidth="373.0">
       <children>
         <Label text="Number of page" GridPane.columnIndex="0" GridPane.rowIndex="3" />
         <TextField fx:id="pageField" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -16,8 +16,6 @@
         <TextField fx:id="authorNameField" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <Label text="Book name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
         <TextField fx:id="bookNameField" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <Label text="IdBook" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <TextField id="bookId" fx:id="bookIdField" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

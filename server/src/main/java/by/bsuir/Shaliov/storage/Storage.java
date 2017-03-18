@@ -13,20 +13,39 @@ import java.util.List;
 public class Storage {
     private static Storage istance = null;
     private List<Book> bookList = new ArrayList<>();
+    private int countId = 0;
+    private Storage() {
+    }
 
-    private Storage(){}
+    public void add(Book book)
+    {
+        book.setId(countId);
+        bookList.add(book);
+        countId++;
+    }
 
-    public void add(Book book) {bookList.add(book);}
-    public void clear () {bookList.clear();}
+    public void clear() {
+        bookList.clear();
+    }
 
-    public static Storage getIstance(){
-        if(istance == null) {
+    public void findRenameBook(Book book) {
+        for (Book findBok : bookList) {
+            if (book.getId() == findBok.getId()) {
+                findBok.setBookName(book.getBookName());
+                findBok.setAuthorName(book.getAuthorName());
+                findBok.setPageValue(book.getPageValue());
+            }
+        }
+    }
+
+    public static Storage getIstance() {
+        if (istance == null) {
             istance = new Storage();
         }
         return istance;
     }
 
-    public List<Book> getBookList(){
+    public List<Book> getBookList() {
         return bookList;
     }
 }

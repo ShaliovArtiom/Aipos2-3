@@ -33,6 +33,7 @@ public class MysqlOption implements BookService.Iface {
     }
 
     private void readBookTable() {
+
         try {
             worker.openConnection();
             Statement statement = worker.getConnection().createStatement();
@@ -60,15 +61,25 @@ public class MysqlOption implements BookService.Iface {
         return instance;
     }
 
+//    @Override
+//    public void addBookTable(int id, String bookName, String authorName, int pageValue) throws TException {
+//
+//    }
+
     @Override
-    public void addBookTable(int id, String bookName, String authorName, int pageValue) throws TException {
+    public void addBookTable(String bookName, String authorName, int pageValue) throws TException {
         DBWorker worker = DBWorker.getInstance();
         PreparedStatement preparedStatement = null;
         query = "insert into book_table (id, BookName, AuthorName, PageOfBook) values (? ,?, ?, ?);";
+        Book book = new Book();
+        book.setBookName(bookName);
+        book.setAuthorName(authorName);
+        book.setPageValue(pageValue);
+        Storage.getIstance().add(book);
         try {
             worker.openConnection();
             preparedStatement = worker.getConnection().prepareStatement(query);
-            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(1, book.getId());
             preparedStatement.setString(2, bookName);
             preparedStatement.setString(3, authorName);
             preparedStatement.setInt(4, pageValue);
@@ -78,19 +89,21 @@ public class MysqlOption implements BookService.Iface {
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
-        Book book = new Book();
-        book.setBookName(bookName);
-        book.setId(id);
-        book.setAuthorName(authorName);
-        book.setPageValue(pageValue);
+
         worker.closeConnection();
-        Storage.getIstance().add(book);
     }
 
     @Override
     public void renameBookTable(int id, String bookName, String authorName, int pageValue) throws TException {
         DBWorker worker = DBWorker.getInstance();
         PreparedStatement preparedStatement = null;
+        Book findBook = new Book();
+        findBook.setBookName(bookName);
+        findBook.setId(id);
+        findBook.setAuthorName(authorName);
+        findBook.setPageValue(pageValue);
+        Storage.getIstance().findRenameBook(findBook);
+
         query = " update book_table SET BookName = ? , AuthorName = ? , PageOfBook =? WHERE id = ?";
         try {
             worker.openConnection();
@@ -104,6 +117,7 @@ public class MysqlOption implements BookService.Iface {
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
+
         worker.closeConnection();
     }
 
@@ -136,7 +150,7 @@ public class MysqlOption implements BookService.Iface {
 
     @Override
     public List<Book> getAllBook() throws TException {
-        return null;
+        return Storage.getIstance().getBookList();
     }
 }
 

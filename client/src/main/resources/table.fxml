@@ -70,7 +70,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <Group id="Group" layoutX="204.0" layoutY="369.0" rotate="0.0">
+            <Group id="Group" layoutX="204.0" layoutY="369.0" rotate="0.0" scaleX="1.0" scaleY="1.0">
               <children>
                 <Button layoutX="44.0" layoutY="0.0" mnemonicParsing="false" onAction="#editButton" text="Edit">
                   <effect>
@@ -89,6 +89,7 @@
                 </Button>
               </children>
             </Group>
+            <Button layoutX="14.0" layoutY="369.0" mnemonicParsing="false" onAction="#refresh" text="refresh" />
           </children>
           <effect>
             <DropShadow color="#996e00" />

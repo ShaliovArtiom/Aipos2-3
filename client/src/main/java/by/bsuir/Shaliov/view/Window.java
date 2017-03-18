@@ -21,7 +21,6 @@ public class Window extends Application {
 
     private AnchorPane layout;
     private static Stage primaryStage;
-    private TransportConnectorService transportConnectorService;
 
     public Window() {
     }
@@ -38,8 +37,6 @@ public class Window extends Application {
     }
 
     private void initLayout() throws Exception {
-
-
         URL resource = Window.class.getResource("/table.fxml");
         FXMLLoader loader = new FXMLLoader(resource);
         layout = loader.load();
@@ -49,7 +46,6 @@ public class Window extends Application {
         primaryStage.setTitle("AIPOS2");
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
 
     public static boolean showEditDialog(Book book) throws IOException {

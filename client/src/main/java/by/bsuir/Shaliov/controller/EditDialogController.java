@@ -1,5 +1,7 @@
 package by.bsuir.Shaliov.controller;
 
+import by.bsuir.Shaliov.service.TransporConnector;
+import by.bsuir.Shaliov.service.TransportConnectorService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -36,11 +38,10 @@ public class EditDialogController {
 
     public void setBook(Book book){
         this.book = book;
-        bookIdField.setText(Integer.toString(book.getId()));
+//        bookIdField.setText(Integer.toString(book.getId()));
         bookNameField.setText(book.getBookName());
         authorNameField.setText(book.getAuthorName());
         pageField.setText(Integer.toString(book.getPageValue()));
-
     }
 
     public boolean isOkClicked(){
@@ -50,7 +51,7 @@ public class EditDialogController {
     @FXML
     private void okButton() {
         if (isInputValid()) {
-            book.setId(Integer.parseInt(bookIdField.getText()));
+//            book.setId(Integer.parseInt(bookIdField.getText()));
             book.setBookName(bookNameField.getText());
             book.setAuthorName(authorNameField.getText());
             book.setPageValue(Integer.parseInt(pageField.getText()));

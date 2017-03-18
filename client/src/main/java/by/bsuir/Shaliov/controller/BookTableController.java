@@ -2,6 +2,8 @@ package by.bsuir.Shaliov.controller;
 
 import by.bsuir.Shaliov.service.TransporConnector;
 import by.bsuir.Shaliov.service.TransportConnectorService;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,9 +13,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import by.bsuir.Shaliov.common.model.Book;
 import by.bsuir.Shaliov.view.Window;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -49,7 +53,6 @@ public class BookTableController implements Initializable {
             authorNameLabel.setText(book.getAuthorName());
             numberOfPageLable.setText(String.valueOf(book.getPageValue()));
             idLable.setText(String.valueOf(book.getId()));
-
         } else {
             bookNameLable.setText("");
             authorNameLabel.setText("");
@@ -67,8 +70,6 @@ public class BookTableController implements Initializable {
             TransportConnectorService transportConnectorService = new TransportConnectorService(TransporConnector.getInstance());
             transportConnectorService.addBook(tempBook.getId(), tempBook.getBookName(), tempBook.getAuthorName(), tempBook.getPageValue());
             TransporConnector.getInstance().closeConnection();
-
-//            MysqlOption.getInstance().addBookTable(tempBook);
             refresh();
         }
     }
@@ -79,9 +80,14 @@ public class BookTableController implements Initializable {
         Book selectedBook = bookTableView.getSelectionModel().getSelectedItem();
         if (selectedBook != null) {
             boolean okClicked = Window.showEditDialog(selectedBook);
-          //  MysqlOption.getInstance().renameBookTable(selectedBook);
             if (okClicked) {
+                TransporConnector.getInstance().openConnection();
+                TransportConnectorService transportConnectorService = new TransportConnectorService(TransporConnector.getInstance());
+                transportConnectorService.renameBook(selectedBook.getId(), selectedBook.getBookName(), selectedBook.getAuthorName(), selectedBook.getPageValue());
+                TransporConnector.getInstance().closeConnection();
+
                 showDetails(selectedBook);
+                refresh();
             }
 
         } else {
@@ -93,6 +99,7 @@ public class BookTableController implements Initializable {
 
             alert.showAndWait();
         }
+
     }
 
     @FXML
@@ -100,7 +107,12 @@ public class BookTableController implements Initializable {
         int selectedIndex = bookTableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             Book book =  bookTableView.getSelectionModel().getSelectedItem();
-//            MysqlOption.getInstance().deleteBookTable(book);
+            TransporConnector.getInstance().openConnection();
+            TransportConnectorService transportConnectorService = new TransportConnectorService(TransporConnector.getInstance());
+            transportConnectorService.removeBook(book.getId(), book.getBookName(), book.getAuthorName(), book.getPageValue());
+            TransporConnector.getInstance().closeConnection();
+
+            data.remove(book);
             refresh();
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -125,13 +137,17 @@ public class BookTableController implements Initializable {
         refresh();
     }
 
+    @FXML
     public void refresh() {
         TransporConnector.getInstance().openConnection();
         transportConnectorService = new TransportConnectorService(TransporConnector.getInstance());
-        data = (ObservableList) transportConnectorService.getAllBook();
+        List<Book> bookList = transportConnectorService.getAllBook();
         TransporConnector.getInstance().closeConnection();
-
-        // data = Storage.getIstance().getBookList();
+        data = null;
+        data = FXCollections.observableArrayList();
+        for (Book book : bookList) {
+            data.add(book);
+        }
         bookTableView.setItems(data);
     }
 }

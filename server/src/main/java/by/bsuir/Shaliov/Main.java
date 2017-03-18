@@ -6,6 +6,11 @@ import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TSimpleServer;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TServerTransport;
+import org.apache.thrift.transport.TTransport;
+import org.apache.thrift.transport.TTransportException;
+
+import java.io.IOException;
+import java.net.Socket;
 
 /**
  * @author ShaliovArtiom.
@@ -15,6 +20,7 @@ public class Main {
 
     public static MysqlOption service;
     public static BookService.Processor processor;
+    private static TServerSocket serverTransport;
 
     public static void main(String[] arg) {
         try {
@@ -31,7 +37,7 @@ public class Main {
 
     private static void perform(BookService.Processor processor) {
         try {
-            TServerTransport serverTransport = new TServerSocket(PORT);
+            serverTransport = new TServerSocket(PORT);
             TServer server = new TSimpleServer(
                     new TServer.Args(serverTransport).processor(processor)
             );
