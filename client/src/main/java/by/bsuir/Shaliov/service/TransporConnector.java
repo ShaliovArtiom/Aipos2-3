@@ -1,11 +1,13 @@
 package by.bsuir.Shaliov.service;
 
+import by.bsuir.Shaliov.ConfigReader;
 import by.bsuir.Shaliov.common.service.BookService;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
+import org.json.simple.parser.ParseException;
 
 /**
  * @author ShaliovArtiom.
@@ -19,8 +21,8 @@ public class TransporConnector {
     private TTransport transport = null;
     private BookService.Client client;
 
-    public TransporConnector() {
-        transport = new TSocket(URL, PORT);
+    public TransporConnector() throws ParseException {
+        transport = new TSocket(ConfigReader.getURL(), Integer.parseInt(ConfigReader.getPORT()));
     }
 
     public TransporConnector(String host, int port) {
@@ -45,7 +47,7 @@ public class TransporConnector {
         client = new BookService.Client(protocol);
     }
 
-    public static TransporConnector getInstance() {
+    public static TransporConnector getInstance() throws ParseException {
         if (instance == null) {
             instance = new TransporConnector();
         }

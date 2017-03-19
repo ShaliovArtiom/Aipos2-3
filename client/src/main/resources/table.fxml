@@ -41,7 +41,7 @@
                 <InnerShadow color="#4333ff" />
               </effect>
             </Label>
-            <GridPane layoutX="14.0" layoutY="62.0" prefHeight="137.0" prefWidth="324.0">
+            <GridPane layoutX="13.0" layoutY="62.0" prefHeight="137.0" prefWidth="324.0">
               <children>
                 <Label text="Name Of Book:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <Label text="Name Of Author:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
@@ -70,7 +70,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <Group id="Group" layoutX="204.0" layoutY="369.0" rotate="0.0" scaleX="1.0" scaleY="1.0">
+            <Group id="Group" rotate="0.0" scaleX="1.0" scaleY="1.0" AnchorPane.bottomAnchor="7.04" AnchorPane.rightAnchor="7.0">
               <children>
                 <Button layoutX="44.0" layoutY="0.0" mnemonicParsing="false" onAction="#editButton" text="Edit">
                   <effect>
@@ -89,7 +89,7 @@
                 </Button>
               </children>
             </Group>
-            <Button layoutX="14.0" layoutY="369.0" mnemonicParsing="false" onAction="#refresh" text="refresh" />
+            <Button mnemonicParsing="false" onAction="#refresh" text="refresh" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="16.0" />
           </children>
           <effect>
             <DropShadow color="#996e00" />

@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import by.bsuir.Shaliov.common.model.Book;
 import by.bsuir.Shaliov.view.Window;
 import javafx.util.Callback;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -62,7 +63,7 @@ public class BookTableController implements Initializable {
     }
 
     @FXML
-    private void newButton() throws IOException {
+    private void newButton() throws IOException, ParseException {
         Book tempBook = new Book();
         boolean okClicked = Window.showEditDialog(tempBook);
         if (okClicked) {
@@ -75,7 +76,7 @@ public class BookTableController implements Initializable {
     }
 
     @FXML
-    private void editButton() throws IOException {
+    private void editButton() throws IOException, ParseException {
 
         Book selectedBook = bookTableView.getSelectionModel().getSelectedItem();
         if (selectedBook != null) {
@@ -103,7 +104,7 @@ public class BookTableController implements Initializable {
     }
 
     @FXML
-    private void deleteButton() {
+    private void deleteButton() throws ParseException {
         int selectedIndex = bookTableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             Book book =  bookTableView.getSelectionModel().getSelectedItem();
@@ -134,11 +135,15 @@ public class BookTableController implements Initializable {
         bookTableView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showDetails(newValue));
 
-        refresh();
+        try {
+            refresh();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    public void refresh() {
+    public void refresh() throws ParseException {
         TransporConnector.getInstance().openConnection();
         transportConnectorService = new TransportConnectorService(TransporConnector.getInstance());
         List<Book> bookList = transportConnectorService.getAllBook();

@@ -16,7 +16,6 @@ import java.net.Socket;
  * @author ShaliovArtiom.
  */
 public class Main {
-    private static final int PORT = 4545;
 
     public static MysqlOption service;
     public static BookService.Processor processor;
@@ -37,12 +36,12 @@ public class Main {
 
     private static void perform(BookService.Processor processor) {
         try {
-            serverTransport = new TServerSocket(PORT);
+            serverTransport = new TServerSocket(Integer.parseInt(ConfigReader.getPORT()));
             TServer server = new TSimpleServer(
                     new TServer.Args(serverTransport).processor(processor)
             );
 
-            System.out.println("Starting " + PORT + "...");
+            System.out.println("Starting " + Integer.parseInt(ConfigReader.getPORT()) + "...");
             server.serve();
         } catch (Exception e) {
             e.printStackTrace();
