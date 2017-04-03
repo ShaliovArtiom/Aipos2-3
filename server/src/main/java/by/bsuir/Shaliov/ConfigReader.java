@@ -9,13 +9,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * @author ShaliovArtiom
+ * Класс, предназначенный для задания сервуру порта
+ * @author ShaliovArtiom, TruntsVitalij
  */
 public class ConfigReader {
     public ConfigReader() {
 
     }
 
+    /**
+     * Функция получения порта
+     * @return возращает значение порта
+     * @throws ParseException ошибка чтения файла
+     */
     public static String getPORT() throws ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(getConfigString());
@@ -24,10 +30,14 @@ public class ConfigReader {
         return jsonObj.get("PORT").toString();
     }
 
+    /**
+     * Функция чтения файла config.json
+     * @return возвращает содержимое файла в string
+     */
     private static String getConfigString(){
         StringBuilder string = new StringBuilder();
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(Main.class.getResourceAsStream("/config.json")));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(MainServer.class.getResourceAsStream("/config.json")));
         while (true){
             try {
                 String str = reader.readLine();

@@ -9,33 +9,63 @@ import javafx.stage.Stage;
 import by.bsuir.Shaliov.common.model.Book;
 
 /**
- * @author ShaliovArtiom.
+ * Класс реализующий диалоговое окно
+ * @author ShaliovArtiom, TruntsVitalij
  */
 public class EditDialogController {
 
+    /**
+     * Поле для ввода названия книги
+     */
     @FXML
     private TextField bookNameField;
 
+    /**
+     * Поле для ввода Id книги
+     */
     @FXML
     private TextField bookIdField;
 
+    /**
+     * Поле для ввода имени автора книги
+     */
     @FXML
     private TextField authorNameField;
 
+    /**
+     * Поле для ввода количества страниц книги
+     */
     @FXML
     private TextField pageField;
 
+    /**
+     * Диалоговое окно
+     */
     private Stage dialogStage;
+    /**
+     * Книга
+     */
     private Book book;
+    /**
+     * булевская переменная проверки состояния диалогового окна
+     */
     private boolean okClicked = false;
 
     @FXML
     private void initialize() {}
 
+    /**
+     * Функция для открытия диалогового окна
+     * @param dialogStage диалоговое окно
+     */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
+    /**
+     * Функция, реализующая занесения в поля ввода данные книги, если они есть
+     * @param book книга
+     */
     public void setBook(Book book){
         this.book = book;
 //        bookIdField.setText(Integer.toString(book.getId()));
@@ -44,10 +74,17 @@ public class EditDialogController {
         pageField.setText(Integer.toString(book.getPageValue()));
     }
 
+    /**
+     * Проверка значения булевской переменной
+     * @return возвращение значения булевской переменной
+     */
     public boolean isOkClicked(){
         return okClicked;
     }
 
+    /**
+     * Функция обработки кнопки Ok
+     */
     @FXML
     private void okButton() {
         if (isInputValid()) {
@@ -61,6 +98,10 @@ public class EditDialogController {
         }
     }
 
+    /**
+     * Функция проверки корректности введённых данных
+     * @return возвращение значения булевской переменной
+     */
     private boolean isInputValid() {
         String errorMessage = "";
 
@@ -93,6 +134,9 @@ public class EditDialogController {
         }
     }
 
+    /**
+     * Функция обработки кнопки Cancel
+     */
     @FXML
     private void cancelButton() {
         dialogStage.close();

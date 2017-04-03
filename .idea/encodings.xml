@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/client/src/main/java/by/bsuir/Shaliov/ConfigReader.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/client/src/main/java/by/bsuir/Shaliov/MainClient.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/client/src/main/java/by/bsuir/Shaliov/controller/BookTableController.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/client/src/main/java/by/bsuir/Shaliov/controller/EditDialogController.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/client/src/main/java/by/bsuir/Shaliov/service/TransporConnector.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/client/src/main/java/by/bsuir/Shaliov/service/TransportConnectorService.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/client/src/main/java/by/bsuir/Shaliov/service/TransportInterface.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/client/src/main/java/by/bsuir/Shaliov/view/Window.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/src/main/java/by/bsuir/Shaliov/common/model/Book.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/src/main/java/by/bsuir/Shaliov/common/model/BookService.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/by/bsuir/Shaliov/ConfigReader.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/by/bsuir/Shaliov/MainServer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/by/bsuir/Shaliov/mysql/DBWorker.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/by/bsuir/Shaliov/mysql/MysqlOption.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/by/bsuir/Shaliov/storage/Storage.java" charset="UTF-8" />
+  </component>
+</project>

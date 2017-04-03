@@ -1,9 +1,10 @@
 package by.bsuir.Shaliov.mysql;
 
 import by.bsuir.Shaliov.common.model.Book;
-import by.bsuir.Shaliov.common.service.BookService;
+import by.bsuir.Shaliov.common.model.BookService;
 import by.bsuir.Shaliov.storage.Storage;
 import org.apache.thrift.TException;
+import org.apache.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,28 +13,44 @@ import java.sql.Statement;
 import java.util.List;
 
 /**
- * @author ShaliovArtiom.
+ * Класс, реализующий запросы MYSQL
+ * @author ShaliovArtiom, TruntsVitalij
  */
 public class MysqlOption implements BookService.Iface {
 
+    /**
+     * поле, предназначенное для создания единственного экземпляра класса
+     */
     public static MysqlOption instance = null;
+    /**
+     * поле для ведения лога
+     */
+    private static final Logger log = Logger.getLogger(MysqlOption.class);
+    /**
+     * поле для запроса MYSQL
+     */
     private String query;
+    /**
+     * поле содержащее ответ запроса MYSQL
+     */
     private ResultSet resultSet;
+    /**
+     * поле для подключения к таблице в MYSQL
+     */
     private DBWorker worker = new DBWorker();
 
-
+    /**
+     * Конструктор, вызывающий функцию readBookTable
+     */
     public MysqlOption() {
-        readTable();
-    }
-
-    public void readTable() {
-
-        query = "select * from book_table";
         readBookTable();
     }
 
+    /**
+     * Функция получения полного списка книг из MYSQL
+     */
     private void readBookTable() {
-
+        query = "select * from book_table";
         try {
             worker.openConnection();
             Statement statement = worker.getConnection().createStatement();
@@ -48,12 +65,18 @@ public class MysqlOption implements BookService.Iface {
             }
             Storage.getIstance().getBookList();
             statement.close();
+            log.info("Загрузилась таблица");
             worker.closeConnection();
         } catch (SQLException e) {
             e.printStackTrace();
+            log.error("Ошибочка");
         }
     }
 
+    /**
+     * Функция проверки единственности базы данных
+     * @return возвращение значения instance
+     */
     public static MysqlOption getInstance() {
         if (instance == null) {
             instance = new MysqlOption();
@@ -61,13 +84,14 @@ public class MysqlOption implements BookService.Iface {
         return instance;
     }
 
-//    @Override
-//    public void addBookTable(int id, String bookName, String authorName, int pageValue) throws TException {
-//
-//    }
-
+    /**
+     * Функция, выполняющая добавление книги в таблицу
+     * @param bookName название книги
+     * @param authorName имя автора книги
+     * @param pageValue количество страниц
+     */
     @Override
-    public void addBookTable(String bookName, String authorName, int pageValue) throws TException {
+    public void addBookTable(String bookName, String authorName, int pageValue) {
         DBWorker worker = DBWorker.getInstance();
         PreparedStatement preparedStatement = null;
         query = "insert into book_table (id, BookName, AuthorName, PageOfBook) values (? ,?, ?, ?);";
@@ -85,16 +109,24 @@ public class MysqlOption implements BookService.Iface {
             preparedStatement.setInt(4, pageValue);
 
             preparedStatement.execute();
+            log.info("Добавлена книга");
 
         } catch (SQLException e1) {
             e1.printStackTrace();
+            log.error("Ошибочка");
         }
-
         worker.closeConnection();
     }
 
+    /**
+     * Функция, выполняющая изменение данных книги
+     * @param id Id книги
+     * @param bookName название книги
+     * @param authorName имя автора книги
+     * @param pageValue количество страниц книги
+     */
     @Override
-    public void renameBookTable(int id, String bookName, String authorName, int pageValue) throws TException {
+    public void renameBookTable(int id, String bookName, String authorName, int pageValue) {
         DBWorker worker = DBWorker.getInstance();
         PreparedStatement preparedStatement = null;
         Book findBook = new Book();
@@ -113,16 +145,24 @@ public class MysqlOption implements BookService.Iface {
             preparedStatement.setInt(3, pageValue);
             preparedStatement.setInt(4, id);
             preparedStatement.execute();
+            log.info("Изменена книга");
 
         } catch (SQLException e1) {
             e1.printStackTrace();
+            log.error("Ошибочка");
         }
-
         worker.closeConnection();
     }
 
+    /**
+     * Функция, выполняющая удаление книги
+     * @param id Id книги
+     * @param bookName название книги
+     * @param authorName имя автора книги
+     * @param pageValue количество страниц книги
+     */
     @Override
-    public void deleteBookTable(int id, String bookName, String authorName, int pageValue) throws TException {
+    public void deleteBookTable(int id, String bookName, String authorName, int pageValue) {
         DBWorker worker = DBWorker.getInstance();
         PreparedStatement preparedStatement = null;
         query = "delete LOW_PRIORITY from book_table WHERE id = ? and BookName = ? and AuthorName = ? and PageOfBook =?;";
@@ -135,10 +175,13 @@ public class MysqlOption implements BookService.Iface {
             preparedStatement.setInt(4, pageValue);
 
             preparedStatement.execute();
+            log.info("Удалена книга");
 
         } catch (SQLException e1) {
             e1.printStackTrace();
+            log.error("Ошибочка");
         }
+
         Book book = new Book();
         book.setBookName(bookName);
         book.setId(id);
@@ -146,11 +189,21 @@ public class MysqlOption implements BookService.Iface {
         book.setPageValue(pageValue);
         worker.closeConnection();
         Storage.getIstance().getBookList().remove(book);
+
     }
 
+    /**
+     * Функция получения всех книги из таблицы MYSQL
+     * @return возвращает лист книг
+     */
     @Override
-    public List<Book> getAllBook() throws TException {
+    public List<Book> getAllBook() {
+        Storage.getIstance().getBookList().clear();
+        Storage.getIstance().resetCount();
+        readBookTable();
+        log.info("Получить список книг");
         return Storage.getIstance().getBookList();
     }
+
 }
 

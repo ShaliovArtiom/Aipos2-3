@@ -10,13 +10,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * @author ShaliovArtiom
+ * Класс, предназначенный для задания клиенту порта и хоста
+ * @author ShaliovArtiom, TruntsVitalij
  */
 public class ConfigReader {
     public ConfigReader() {
 
     }
 
+    /**
+     * Функция получения порта
+     * @return возращает значение порта
+     * @throws ParseException ошибка чтения файла
+     */
     public static String getPORT() throws ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(getConfigString());
@@ -25,6 +31,11 @@ public class ConfigReader {
         return jsonObj.get("PORT").toString();
     }
 
+    /**
+     * Функция получения хоста
+     * @return возращает значение хоста
+     * @throws ParseException ошибка чтения файла
+     */
     public static String getURL() throws ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(getConfigString());
@@ -33,6 +44,10 @@ public class ConfigReader {
         return jsonObj.get("HOST").toString();
     }
 
+    /**
+     * Функция чтения файла config.json
+     * @return возвращает содержимое файла в string
+     */
     private static String getConfigString(){
         StringBuilder string = new StringBuilder();
 

@@ -1,21 +1,32 @@
 package by.bsuir.Shaliov.service;
 
 import by.bsuir.Shaliov.common.model.Book;
-import by.bsuir.Shaliov.common.service.BookService;
+import by.bsuir.Shaliov.common.model.BookService;
 import org.apache.thrift.TException;
 
 import java.util.List;
 
 /**
- * @author ShaliovArtiom.
+ * Класс, реализующий интерфейсы получения данных от сервера
+ * @author ShaliovArtiom, TruntsVitalij
  */
 public class TransportConnectorService  implements TransportInterface {
     private BookService.Client client;
 
+    /**
+     * Конструктор, устанавливающий соединения с сервером
+     * @param transportConnector канал связи клиента с сервером
+     */
     public TransportConnectorService(TransporConnector transportConnector) {
         client = transportConnector.getClient();
     }
-
+    /**
+     * Функция добавления книги в таблицу
+     * @param id Id книги
+     * @param bookName название книги
+     * @param authorName имя автора книги
+     * @param pageOfValue количество страниц книги
+     */
     @Override
     public void addBook(int id, String bookName, String authorName, int pageOfValue) {
         try {
@@ -25,6 +36,13 @@ public class TransportConnectorService  implements TransportInterface {
         }
     }
 
+    /**
+     * Функция изменения книги
+     * @param id Id книги
+     * @param bookName название книги
+     * @param authorName имя автора книги
+     * @param pageOfValue количество страниц книги
+     */
     @Override
     public void renameBook(int id, String bookName, String authorName, int pageOfValue) {
         try {
@@ -34,6 +52,13 @@ public class TransportConnectorService  implements TransportInterface {
         }
     }
 
+    /**
+     * Функция удаления книги
+     * @param id Id книги
+     * @param bookName название книги
+     * @param authorName имя автора книги
+     * @param pageOfValue количество страниц книги
+     */
     @Override
     public void removeBook(int id, String bookName, String authorName, int pageOfValue) {
         try {
@@ -43,6 +68,10 @@ public class TransportConnectorService  implements TransportInterface {
         }
     }
 
+    /**
+     * Получение всех книг из листа
+     * @return возвращения листа книг
+     */
     @Override
     public List<Book> getAllBook() {
         List<Book> bookList = null;

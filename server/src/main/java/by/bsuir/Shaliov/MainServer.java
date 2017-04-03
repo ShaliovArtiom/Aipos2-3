@@ -1,26 +1,33 @@
 package by.bsuir.Shaliov;
 
-import by.bsuir.Shaliov.common.service.BookService;
+import by.bsuir.Shaliov.common.model.BookService;
 import by.bsuir.Shaliov.mysql.MysqlOption;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TSimpleServer;
 import org.apache.thrift.transport.TServerSocket;
-import org.apache.thrift.transport.TServerTransport;
-import org.apache.thrift.transport.TTransport;
-import org.apache.thrift.transport.TTransportException;
-
-import java.io.IOException;
-import java.net.Socket;
 
 /**
- * @author ShaliovArtiom.
+ *
+ * @author ShaliovArtiom, TruntsVitalij
  */
-public class Main {
-
+public class MainServer {
+    /**
+     * Запросы MYSQL
+     */
     public static MysqlOption service;
+    /**
+     *
+     */
     public static BookService.Processor processor;
+    /**
+     * сокет сервера
+     */
     private static TServerSocket serverTransport;
 
+    /**
+     * Функция, инициализирующая MYSQL запросы и функции для книги
+     * @param arg массив строк
+     */
     public static void main(String[] arg) {
         try {
             service = new MysqlOption();
@@ -34,6 +41,10 @@ public class Main {
         }
     }
 
+    /**
+     * Функция, реализующая общение сервера с клиентом
+     * @param processor
+     */
     private static void perform(BookService.Processor processor) {
         try {
             serverTransport = new TServerSocket(Integer.parseInt(ConfigReader.getPORT()));

@@ -21,32 +21,61 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-/**
- * @author ShaliovArtiom.
+/** Главная таблица
+ * @author ShaliovArtiom, TruntsVitalij
  */
 public class BookTableController implements Initializable {
 
-
+    /**
+     * Данные, которые заносятся в таблицу
+     */
     private ObservableList<Book> data;
     @FXML
+    /**
+     * Второстепенная таблица
+     */
     private TableView<Book> bookTableView;
     @FXML
+    /**
+     * Столбец названия книги главной таблицы
+     */
     private TableColumn<Book, String> bookNameColumn;
     @FXML
+    /**
+     * Столбец имени автора главной таблицы
+     */
     private TableColumn<Book, String> authorNameColumn;
     @FXML
 
+    /**
+     * Имя автора во второстепенной таблице
+     */
     private Label authorNameLabel;
     @FXML
+    /**
+     * Название книги во второстепенной таблицы
+     */
     private Label bookNameLable;
     @FXML
+    /**
+     * Количество страниц во второстепенной таблице
+     */
     private Label numberOfPageLable;
     @FXML
+    /**
+     * Id книги во второстепенной таблице
+     */
     private Label idLable;
 
+    /**
+     * Соединения с MYSQL таблицой
+     */
     private TransportConnectorService transportConnectorService;
 
-
+    /**
+     * Функция отображения данных выбранной книги, если они есть
+     * @param book книги
+     */
     public void showDetails(Book book) {
 
         if (book != null) {
@@ -62,6 +91,11 @@ public class BookTableController implements Initializable {
         }
     }
 
+    /**
+     * Функция обработки кнопки New
+     * @throws IOException
+     * @throws ParseException
+     */
     @FXML
     private void newButton() throws IOException, ParseException {
         Book tempBook = new Book();
@@ -75,6 +109,11 @@ public class BookTableController implements Initializable {
         }
     }
 
+    /**
+     * Функция обработки книпоки Edit
+     * @throws IOException
+     * @throws ParseException
+     */
     @FXML
     private void editButton() throws IOException, ParseException {
 
@@ -103,6 +142,10 @@ public class BookTableController implements Initializable {
 
     }
 
+    /**
+     * Функция обработки кнопки Delete
+     * @throws ParseException
+     */
     @FXML
     private void deleteButton() throws ParseException {
         int selectedIndex = bookTableView.getSelectionModel().getSelectedIndex();
@@ -126,6 +169,11 @@ public class BookTableController implements Initializable {
         }
     }
 
+    /**
+     * Инициализация главной таблицы
+     * @param location путь к таблице
+     * @param resources данные таблицы
+     */
     public void initialize(URL location, ResourceBundle resources) {
         bookNameColumn.setCellValueFactory(cellData -> cellData.getValue().getBookNameProperty());
         authorNameColumn.setCellValueFactory(cellData -> cellData.getValue().getAuthorNameProperty());
@@ -142,6 +190,10 @@ public class BookTableController implements Initializable {
         }
     }
 
+    /**
+     * Функция обработки кнопки refresh
+     * @throws ParseException
+     */
     @FXML
     public void refresh() throws ParseException {
         TransporConnector.getInstance().openConnection();
@@ -155,4 +207,5 @@ public class BookTableController implements Initializable {
         }
         bookTableView.setItems(data);
     }
+
 }
