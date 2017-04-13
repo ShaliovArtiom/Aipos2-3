@@ -26,7 +26,6 @@ public class ConfigReader {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(getConfigString());
         JSONObject jsonObj = (JSONObject) obj;
-        System.out.println(jsonObj.get("PORT"));
         return jsonObj.get("PORT").toString();
     }
 

@@ -62,8 +62,6 @@ public class Window extends Application {
         FXMLLoader loader = new FXMLLoader(resource);
         layout = loader.load();
         Scene scene = new Scene(layout);
-        BookTableController controller = loader.getController();
-        controller.refresh();
         primaryStage.setTitle("AIPOS2");
         primaryStage.setScene(scene);
         primaryStage.show();

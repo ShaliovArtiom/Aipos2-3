@@ -51,8 +51,6 @@ public class MainServer {
             TServer server = new TSimpleServer(
                     new TServer.Args(serverTransport).processor(processor)
             );
-
-            System.out.println("Starting " + Integer.parseInt(ConfigReader.getPORT()) + "...");
             server.serve();
         } catch (Exception e) {
             e.printStackTrace();

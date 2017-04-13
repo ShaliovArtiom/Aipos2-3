@@ -65,11 +65,11 @@ public class MysqlOption implements BookService.Iface {
             }
             Storage.getIstance().getBookList();
             statement.close();
-            log.info("Загрузилась таблица");
+            log.info("Read table from SQL");
             worker.closeConnection();
         } catch (SQLException e) {
             e.printStackTrace();
-            log.error("Ошибочка");
+            log.error("error");
         }
     }
 
@@ -109,11 +109,11 @@ public class MysqlOption implements BookService.Iface {
             preparedStatement.setInt(4, pageValue);
 
             preparedStatement.execute();
-            log.info("Добавлена книга");
+            log.info("Add book in table");
 
         } catch (SQLException e1) {
             e1.printStackTrace();
-            log.error("Ошибочка");
+            log.error("error");
         }
         worker.closeConnection();
     }
@@ -145,11 +145,11 @@ public class MysqlOption implements BookService.Iface {
             preparedStatement.setInt(3, pageValue);
             preparedStatement.setInt(4, id);
             preparedStatement.execute();
-            log.info("Изменена книга");
+            log.info("Chanched the book");
 
         } catch (SQLException e1) {
             e1.printStackTrace();
-            log.error("Ошибочка");
+            log.error("error");
         }
         worker.closeConnection();
     }
@@ -175,11 +175,11 @@ public class MysqlOption implements BookService.Iface {
             preparedStatement.setInt(4, pageValue);
 
             preparedStatement.execute();
-            log.info("Удалена книга");
+            log.info("Remove the book");
 
         } catch (SQLException e1) {
             e1.printStackTrace();
-            log.error("Ошибочка");
+            log.error("error");
         }
 
         Book book = new Book();
@@ -201,7 +201,7 @@ public class MysqlOption implements BookService.Iface {
         Storage.getIstance().getBookList().clear();
         Storage.getIstance().resetCount();
         readBookTable();
-        log.info("Получить список книг");
+        log.info("Get list book");
         return Storage.getIstance().getBookList();
     }
 
